@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { Route, Routes } from 'react-router-dom';
+import './global.css'
+import Home from './pages/Home'
+import Blog from './components/Blog'
+import Products from './components/Products'
+import Price from './components/Price'
+import Signup from './pages/Signup'
+import Login from './pages/Login'
+import { useSelector } from 'react-redux';
 function App() {
+  const signed_state = useSelector((state) => state.user.loggedInState);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      { signed_state ? (
+      <Route path='/' element={<Home/>}>
+        <Route path ='/blog' element={<Blog/>}/>
+        <Route path='/products' element={<Products/>}/>
+        <Route path='/price' element={<Price/>}/>
+      </Route>
+      ): (
+        <>
+        <Route index path="/signup" element={<Signup />} />
+        <Route path="/" element={<Login />} />
+      </>
+      )}
+       <Route path="/*" element={<h1>Page not found</h1>} />
+    </Routes> 
   );
 }
 
