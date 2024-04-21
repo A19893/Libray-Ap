@@ -14,13 +14,11 @@ const userSlice = createSlice({
   name: "user",
   initialState: initialState,
   reducers: {
-    // addUsers: (state, action) => {
-    //   return action.payload;
-    // },
     logOutUser: (state, action) => { 
       state.loggedInState= false;
       state.message= "User Logged Out Successfully"
       state.users= {};
+      state.token= "";
     },
     deleteMessage: (state, action) => {
       state.message = "";
@@ -33,9 +31,6 @@ const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(addUser.fulfilled, (state, action) => {
-        // state.isLoading= false;
-        // state.loggedInState= true;
-        // state.users= action.payload;
         state.isLoading = false;
         state.message = "User Created Successfully";
         state.type = "Success";
@@ -43,7 +38,7 @@ const userSlice = createSlice({
       .addCase(addUser.rejected, (state, action) => {
         console.log(action.payload);
         state.isLoading = false;
-        state.message = action.payload.error;
+        state.message = action?.payload?.error;
         state.type = "Error";
       })
       .addCase(loginUsers.pending, (state, action) => {
@@ -53,7 +48,7 @@ const userSlice = createSlice({
         console.log(action.payload,"api hit hui");
         state.isLoading = false;
         state.loggedInState = true;
-        state.users = action.payload?.existingUser;
+        state.users = action.payload;
         state.message = "User Logged In  Successfully";
         state.type = "Success";
         state.token = action.payload.token;
@@ -67,5 +62,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { addUsers, logOutUser, deleteMessage, addLoggedInId } = userSlice.actions;
+export const { logOutUser, deleteMessage } = userSlice.actions;
 export default userSlice.reducer;

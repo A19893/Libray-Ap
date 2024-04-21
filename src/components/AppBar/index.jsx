@@ -12,7 +12,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logOutUser } from '../../features/Users/user.slice';
 
 const pages = [
   {
@@ -28,12 +31,13 @@ const pages = [
     link: '/blog'
   }
 ]
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Logout'];
 const Index = () => {
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
     
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
     };
@@ -138,11 +142,12 @@ const Index = () => {
             </Button>
           ))}
         </Box>
-
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <Avatar>
+                <AccountCircleOutlinedIcon/>
+              </Avatar>
             </IconButton>
           </Tooltip>
           <Menu
@@ -163,7 +168,7 @@ const Index = () => {
           >
             {settings.map((setting) => (
               <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">{setting}</Typography>
+                <Typography textAlign="center" onClick={()=>dispatch(logOutUser())}>{setting}</Typography>
               </MenuItem>
             ))}
           </Menu>

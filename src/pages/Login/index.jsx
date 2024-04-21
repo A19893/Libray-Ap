@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Login from '../../components/Login'
-const index = () => {
+import { Snackbar } from '../../components/SnackBar/SnackBar'
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteMessage } from '../../features/Users/user.slice';
+const Index = () => {
+  const showSnackbar = Snackbar();
+  const dispatch = useDispatch();
+  const { message, type } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (message !== "") {
+      showSnackbar(message, type);
+      setTimeout(() => {
+        dispatch(deleteMessage());
+      }, 1000);
+    }
+  }, [message]);
+  
   return (
     <Login/>
   )
 }
 
-export default index
+export default Index

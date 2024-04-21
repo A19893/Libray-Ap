@@ -6,10 +6,12 @@ import Products from './components/Products'
 import Price from './components/Price'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
+import { SnackbarProvider } from 'notistack'
 import { useSelector } from 'react-redux';
 function App() {
   const signed_state = useSelector((state) => state.user.loggedInState);
   return (
+    <SnackbarProvider>
     <Routes>
       { signed_state ? (
       <Route path='/' element={<Home/>}>
@@ -25,6 +27,7 @@ function App() {
       )}
        <Route path="/*" element={<h1>Page not found</h1>} />
     </Routes> 
+    </SnackbarProvider>
   );
 }
 
