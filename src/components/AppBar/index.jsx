@@ -53,6 +53,11 @@ const Index = () => {
       
       setAnchorElUser(null);
     };
+
+    const logoutHandler = () =>{
+      dispatch(logOutUser());
+      navigate("/")
+    }
   return (
     <AppBar position="static">
     <Container maxWidth="xl">
@@ -71,6 +76,7 @@ const Index = () => {
             letterSpacing: '.3rem',
             color: 'inherit',
             textDecoration: 'none',
+            cursor: 'pointer'
           }}
         >
           LOGO
@@ -168,7 +174,7 @@ const Index = () => {
           >
             {settings.map((setting) => (
               <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center" onClick={()=>dispatch(logOutUser())}>{setting}</Typography>
+                <Typography textAlign="center" onClick={logoutHandler}>{setting}</Typography>
               </MenuItem>
             ))}
           </Menu>
