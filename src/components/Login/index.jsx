@@ -6,7 +6,7 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
-import { Button, Typography } from "@mui/material";
+import { Button, FormHelperText, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { login_schema } from "../../schemas";
@@ -56,8 +56,8 @@ const Index = () => {
             name="email"
             control={control}
             render={({ field }) => (
-              <FormControl fullWidth sx={{ m: 1 }}>
-                <InputLabel htmlFor="outlined-adornment-email">
+              <FormControl fullWidth sx={{ m: 1 }} error={!!errors.email}>
+                <InputLabel htmlFor="outlined-adornment-email" >
                   Email
                 </InputLabel>
                 <OutlinedInput
@@ -72,8 +72,8 @@ const Index = () => {
                   label="Email"
                   size="small"
                   error={!!errors.email}
-                  helperText={errors.email ? errors.email.message : ""}
                 />
+                <FormHelperText>{errors.email ? errors.email.message : ""}</FormHelperText>
               </FormControl>
             )}
           />
@@ -81,8 +81,8 @@ const Index = () => {
             name="password"
             control={control}
             render={({ field }) => (
-              <FormControl fullWidth sx={{ m: 1 }}>
-                <InputLabel htmlFor="outlined-adornment-password">
+              <FormControl fullWidth sx={{ m: 1 }}  error={!!errors.password}>
+                <InputLabel htmlFor="outlined-adornment-password" error={!!errors.password}>
                   Password
                 </InputLabel>
                 <OutlinedInput
@@ -97,9 +97,8 @@ const Index = () => {
                   type="password"
                   label="Password"
                   size="small"
-                  error={!!errors.password}
-                  helperText={errors.password ? errors.password.message : ""}
                 />
+                <FormHelperText>{errors.password ? errors.password.message : ""}</FormHelperText>
               </FormControl>
             )}
           />
@@ -125,7 +124,7 @@ const Index = () => {
         <img
           src={login_background}
           alt="login-img"
-          className="h-screen w-full object-cover"
+          className="h-screen w-full"
         />
       </div>
     </div>
